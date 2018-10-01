@@ -1,0 +1,17 @@
+<launch>
+  <arg name="model" default="urdf/vp6242_robotiq85.xacro" />
+  <arg name="gui" default="true" />
+
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find vp6242_robotiq85_description)/$(arg model)'" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+  </node>
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find vp6242_robotiq85_description)/launch/vp6242.rviz"/>
+
+</launch>
