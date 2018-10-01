@@ -10,9 +10,10 @@ git clone https://github.com/bglima/robotiq_85_gripper
 git clone https://github.com/bglima/VP6242_ROS.git
 ```
 
-Then, install MoveIT core and dependencies:
+Then, install MoveIT core and ROS effort-controller dependencies:
 ```
 sudo apt-get install ros-$ROS_DISTRO-moveit
+sudo apt-get install ros-$ROS_DISTRO-effort-controllers
 ```
 
 Then clone this repo and build workspace.
