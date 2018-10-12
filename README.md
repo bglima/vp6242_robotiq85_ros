@@ -22,11 +22,24 @@ git clone https://github.com/bglima/vp6242_robotiq85_ros.git
 cd ~/catkin_ws
 catkin_make
 ```
-## How to run
+## How to run RViz
 RViz visualization:
 ```
 roslaunch vp6242_robotiq85_description vp6242gripper.launch
 ```
+
+By default, ```joint_state_publisher``` node starts with ```use_gui``` parameter as true, in order to use GUI sliders. Alternatively, you may desire to control visualization by topic publishing, using:
+```
+roslaunch vp6242_robotiq85_description vp6242gripper.launch gui:=false
+```
+You can set joint positions by sending a message to ```ik_joint_states``` topic, as following example:
+```
+rostopic pub /ik_joint_states  sensor_msgs/JointState '{header: {seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: ""},
+  name: ["joint1", "joint2", "gripper_finger1_joint"],
+  position: [1.57, 0.5, 1.0]}'
+```
+
+## Running Gazebo physical simulation
 
 If you want to run Gazebo world instead:
 ```
@@ -49,3 +62,10 @@ points:
   effort: [0, 0, 0, 0]
   time_from_start: {secs: 1, nsecs: 0}"
 ```
+
+## References
+[Joint State Publisher wiki](http://wiki.ros.org/joint_state_publisher)
+
+[Why to use a joint_state_publisher?](https://answers.ros.org/question/207728/why-use-joint_state_publisher/)
+
+[Joint Trajectory Controller](http://wiki.ros.org/joint_trajectory_controller)
