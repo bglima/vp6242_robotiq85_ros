@@ -23,7 +23,29 @@ cd ~/catkin_ws
 catkin_make
 ```
 ## How to run
-For now, only RViz visualization is avaliable:
+RViz visualization:
 ```
 roslaunch vp6242_robotiq85_description vp6242gripper.launch
+```
+
+If you want to run Gazebo world instead:
+```
+roslaunch vp6242_robotiq85_gazebo vp6242_robotiq_85.launch
+```
+
+In order to control Gazebo model, use JointTrajectory. You can change more than one joint at once. Following example shows how to change joints 1, 2, 3 and 5:
+```
+rostopic pub /vp6242/trajectory_controller/command trajectory_msgs/JointTrajectory "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+joint_names: ['joint1', 'joint2', 'joint3', 'joint5']
+points:
+- positions: [0, 0, 1.57, 0]   
+  velocities: [0, 0, 0, 0]
+  accelerations: [0, 0, 0, 0]
+  effort: [0, 0, 0, 0]
+  time_from_start: {secs: 1, nsecs: 0}"
 ```
