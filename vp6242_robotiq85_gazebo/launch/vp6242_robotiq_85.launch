@@ -1,0 +1,33 @@
+<launch>
+  <!-- roslaunch arguments -->
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find vp6242_gazebo)/worlds/vp6242.world"/>
+    <!-- more default parameters can be changed here -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <!-- Description -->
+  <param name="robot_description"
+   command="$(find xacro)/xacro --inorder '$(find vp6242_robotiq85_description)/urdf/vp6242_robotiq85.xacro'"/>
+
+  <!-- Spawn a robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+    args="-param robot_description -urdf -model vp6242" />
+
+  <!-- Robot controller starter -->
+  <include file="$(find vp6242_robotiq85_gazebo)/launch/vp6242_robotiq_85_control.launch" />
+
+  <!-- Publish robot states for RViz visualization -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+    <remap from="/joint_states" to="/vp6242/joint_states" />
+  </node>
+
+</launch>
