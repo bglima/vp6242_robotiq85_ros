@@ -7,6 +7,7 @@
   <node name="vp6242_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 	output="screen" ns="/vp6242" args="--namespace=/vp6242
             joint_state_controller
-					  trajectory_controller"/>
+					  trajectory_controller
+            gripper_position_controller"/>
 
 </launch>
