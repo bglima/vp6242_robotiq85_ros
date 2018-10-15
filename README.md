@@ -46,7 +46,7 @@ If you want to run Gazebo world instead:
 roslaunch vp6242_robotiq85_gazebo vp6242_robotiq_85.launch
 ```
 
-In order to control Gazebo model, use JointTrajectory. You can change more than one joint at once. Following example shows how to change joints 1, 2, 3 and 5:
+In order to control Gazebo arm model, use JointTrajectory. You can change more than one joint at once. Following example shows how to change joints 1, 2, 3 and 5:
 ```
 rostopic pub /vp6242/trajectory_controller/command trajectory_msgs/JointTrajectory "header:
   seq: 0
@@ -60,6 +60,25 @@ points:
   velocities: [0, 0, 0, 0]
   accelerations: [0, 0, 0, 0]
   effort: [0, 0, 0, 0]
+  time_from_start: {secs: 1, nsecs: 0}"
+```
+
+Lastly, you can command gripper to open or close. Position 0.8 means fully closed, while position 0.0 means fully opened.
+Command example:
+```
+rostopic pub vp6242/gripper_position_controller/command trajectory_msgs/JointTrajectory "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+joint_names:
+- 'gripper_finger1_joint'
+points:
+- positions: [0.80]
+  velocities: [0]
+  accelerations: [0]
+  effort: [0]
   time_from_start: {secs: 1, nsecs: 0}"
 ```
 
