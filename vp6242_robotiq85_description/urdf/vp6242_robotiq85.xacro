@@ -2,7 +2,7 @@
 
 <robot name="vp6242gripper" xmlns:xacro="http://ros.org/wiki/xacro">
     <!-- include xacro file containing a link where you want to attach the manipulator -->
-    <include filename="$(find vp6242_description)/urdf/vp6242_macro.xacro"/>
+    <xacro:include filename="$(find vp6242_description)/urdf/vp6242_macro.xacro"/>
     <xacro:vp6242 prefix=""/>
 
     <xacro:include filename="$(find robotiq_85_description)/urdf/robotiq_85_gripper.urdf.xacro" />
